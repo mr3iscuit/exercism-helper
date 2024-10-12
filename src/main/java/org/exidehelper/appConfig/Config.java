@@ -1,4 +1,4 @@
-package org.exidehelper;
+package org.exidehelper.appConfig;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.exidehelper.exceptions.ConfigFileIOException;

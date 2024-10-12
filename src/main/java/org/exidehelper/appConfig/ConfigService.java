@@ -1,5 +1,4 @@
-package org.exidehelper;
-import org.exidehelper.appConfig.IConfigService;
+package org.exidehelper.appConfig;
 
 import java.util.Objects;
 
@@ -7,7 +6,7 @@ public class ConfigService implements IConfigService {
     Config config = new Config();
 
     @Override
-    public String getExercismExecutablePath() {
+    public String getExercismExecutable() {
         return config.getExercismExecutablePath();
     }
 

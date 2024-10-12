@@ -1,4 +1,4 @@
-package org.exidehelper;
+package org.exidehelper.appConfig;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

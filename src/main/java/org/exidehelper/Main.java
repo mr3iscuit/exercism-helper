@@ -1,57 +1,29 @@
 package org.exidehelper;
-import org.apache.commons.cli.*;
-import org.exidehelper.exceptions.NoArgumentsException;
+import org.exidehelper.appConfig.ConfigService;
+import org.exidehelper.commands.ConfigCommand;
+import org.exidehelper.commands.WorkspaceCommand;
+import org.exidehelper.exercismWrapperService.ExercismAPIWrapperService;
+import picocli.CommandLine;
+import picocli.CommandLine.Command;
 
-public class Main {
+
+@Command()
+public class Main implements Runnable {
+    @Override
+    public void run() {
+
+    }
     public static void main(String[] args) {
-        Options options = new Options();
-        ConfigManager configManager = new ConfigManager();
+        ConfigService configService = new ConfigService();
+        ExercismAPIWrapperService exercismAPIWrapperService = new ExercismAPIWrapperService(configService);
+        ConfigCommand configCommand = new ConfigCommand(exercismAPIWrapperService);
 
-        options.addOption(
-                Option.builder("h")
-                        .longOpt("set-home")
-                        .argName("exercism home folder")
-                        .hasArg()
-                        .desc("Set home folder. Usually /home/<user>/exercism")
-                        .build()
-        );
+        WorkspaceCommand workspaceCommand = new WorkspaceCommand(exercismAPIWrapperService);
 
-        options.addOption(
-                Option.builder("t")
-                        .longOpt("default-track")
-                        .argName("default track")
-                        .hasArg()
-                        .desc("Set default exercism track, For example java")
-                        .build()
-        );
-
-        CommandLineParser parser = new DefaultParser();
-        HelpFormatter formatter = new HelpFormatter();
-        CommandLine cmd = null;
-
-        try {
-            cmd = parser.parse(options, args);
-
-            if(args.length == 0) {
-                throw new NoArgumentsException();
-            }
-
-            if(cmd.hasOption("set-home")) {
-                String homeFolder = cmd.getOptionValue("set-home");
-                configManager.setHome(homeFolder);
-            }
-        }
-        catch (ParseException e) {
-            System.out.println(e.getMessage());
-            formatter.printHelp("exercism-helper", options);
-            System.exit(1);
-        }
-        catch (NoArgumentsException e) {
-            formatter.printHelp("exercism-helper", options);
-            System.exit(1);
-        }
-        catch (RuntimeException e) {
-            System.out.println("Some error occured: " + e.getMessage());
-        }
+        int exitCode = new CommandLine(new Main())
+                .addSubcommand("configure", configCommand)
+                .addSubcommand("workspace", workspaceCommand)
+                .execute(args);
+        System.exit(exitCode);
     }
 }

@@ -1,6 +1,6 @@
-package org.exidehelper;
+package org.exidehelper.appConfig;
 
 public interface IConfigService {
-    String getExercismExecutablePath();
+    String getExercismExecutable();
     void setExercismExecutablePath(String path);
 }
