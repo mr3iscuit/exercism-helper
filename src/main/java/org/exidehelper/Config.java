@@ -1,8 +1,8 @@
 package org.exidehelper;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.exidehelper.exceptions.ConfigFileIOException;
 
-import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
