@@ -10,5 +10,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ConfigModel {
-    private String homeFolder;
+    private String exercismExecutablePath;
 }

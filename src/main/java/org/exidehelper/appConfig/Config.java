@@ -43,13 +43,13 @@ public class Config {
         return this;
     }
 
-    public Config setHome(String homeFolder) {
-
-        this.config.setHomeFolder(homeFolder);
-        return this;
+    public String getExercismExecutablePath() {
+        return config.getExercismExecutablePath();
     }
 
-    public String getHome() {
-        return config.getHomeFolder();
+
+    public Config setExercismExecutablePath(String path) {
+        config.setExercismExecutablePath(path);
+        return this;
     }
 }
