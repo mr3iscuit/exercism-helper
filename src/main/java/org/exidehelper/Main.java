@@ -1,36 +1,30 @@
 package org.exidehelper;
-import org.apache.commons.cli.*;
+import org.exidehelper.appConfig.ConfigService;
+import org.exidehelper.commands.ConfigCommand;
+import org.exidehelper.commands.WorkspaceCommand;
+import org.exidehelper.exercismWrapperService.*;
+import picocli.CommandLine;
+import picocli.CommandLine.Command;
 
 
-public class Main {
+@Command()
+public class Main implements Runnable {
+    @Override
+    public void run() {
+
+    }
     public static void main(String[] args) {
-        Options options = new Options();
 
-        Option input = new Option("i", "input", true, "input file path");
-        input.setRequired(true);
-        options.addOption(input);
+        ConfigService configService = new ConfigService();
+        IExercismAPIWrapperService exercismAPIWrapperService = new ExercismAPIWrapperService(configService);
+        ConfigCommand configCommand = new ConfigCommand(exercismAPIWrapperService);
 
-        Option output = new Option("o", "output", true, "output file");
-        output.setRequired(true);
-        options.addOption(output);
+        WorkspaceCommand workspaceCommand = new WorkspaceCommand(exercismAPIWrapperService);
 
-        CommandLineParser parser = new DefaultParser();
-        HelpFormatter formatter = new HelpFormatter();
-        CommandLine cmd = null;//not a good practice, it serves it purpose
-
-        try {
-            cmd = parser.parse(options, args);
-        } catch (ParseException e) {
-            System.out.println(e.getMessage());
-            formatter.printHelp("utility-name", options);
-
-            System.exit(1);
-        }
-
-        String inputFilePath = cmd.getOptionValue("input");
-        String outputFilePath = cmd.getOptionValue("output");
-
-        System.out.println(inputFilePath);
-        System.out.println(outputFilePath);
+        int exitCode = new CommandLine(new Main())
+                .addSubcommand("workspace", workspaceCommand)
+                .addSubcommand("configure", configCommand)
+                .execute(args);
+        System.exit(exitCode);
     }
 }
