@@ -18,8 +18,8 @@ public class WorkspaceCommand implements Runnable {
     @SneakyThrows
     @Override
     public void run() {
-        System.out.println(
-                exercismAPIWrapperService.workspace().runCommand()
+        System.out.print(
+                exercismAPIWrapperService.workspace()
         );
     }
 }

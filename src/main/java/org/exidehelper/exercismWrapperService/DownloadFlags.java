@@ -9,8 +9,11 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class GlobalFlags {
-    Integer timeout;
-    Boolean unmaskToken;
-    Boolean verbose;
+public class DownloadFlags {
+    private Boolean force;
+    private Boolean help;
+    private String exercise;
+    private String track;
+    private String team;
+    private String uuid;
 }
