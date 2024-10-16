@@ -10,9 +10,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ConfigCommandFlags {
-    boolean show;
-    boolean help;
-    boolean noVerify;
+    Boolean show;
+    Boolean help;
+    Boolean noVerify;
 
     String workspace;
     String token;
