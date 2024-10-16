@@ -18,10 +18,14 @@ public class ExercismAPIWrapperService implements IExercismAPIWrapperService {
     }
 
     @Override
-    public IExercismAPIWrapperService workspace() {
+    public String workspace() throws IOException, InterruptedException {
 
-        command.add("workspace");
-        return this;
+        List<String> command = List.of(new String[]{
+                configService.getExercismExecutable(),
+                "workspace",
+        }).stream().filter(s -> !s.isEmpty()).collect(Collectors.toList());
+
+        return CommandExecutor.executeCommand(command);
     }
 
     @Override
@@ -48,6 +52,53 @@ public class ExercismAPIWrapperService implements IExercismAPIWrapperService {
 
         command.clear();
         return res;
+    }
+
+    @Override
+    public String download(GlobalFlags gf, DownloadFlags df) throws IOException, InterruptedException {
+        List<String> command = List.of(new String[]{
+                configService.getExercismExecutable(),
+
+                gf.getUnmaskToken() ? "--unmask-token" : "",
+                gf.getVerbose() ? "--verbose" : "",
+
+                gf.getTimeout() != null ? "--timeout" : "",
+                gf.getTimeout() != null ? String.valueOf(gf.getTimeout()) : "",
+
+                "download",
+
+                df.getExercise() != null ? "--exercise" : "",
+                df.getExercise() != null ? df.getExercise() : "",
+
+                df.getForce() ? "--force" : "",
+                df.getForce() ? "--help" : "",
+
+                df.getTeam() != null ? "--team" : "",
+                df.getTeam() != null ? df.getTeam() : "",
+
+                df.getTrack() != null ? "--track" : "",
+                df.getTrack() != null ? df.getTrack() : "",
+
+                df.getUuid() != null ? "--track" : "",
+                df.getUuid() != null ? df.getUuid() : "",
+
+        }).stream().filter(s -> !s.isEmpty()).collect(Collectors.toList());
+
+        System.out.println(
+            CommandExecutor.executeCommand(command)
+        );
+
+        String exercisePath = "%s/%s/%s".formatted(this.workspace().strip(), df.getTrack(), df.getExercise());
+
+        /*
+        //TODO open IDE by default if setting is predefined.
+        CommandExecutor.executeCommand(List.of(new String[]{
+                "idea-community", //TODO load IDE from configuration for specific track
+                exercisePath
+        }));
+        */
+
+        return exercisePath;
     }
 
     @Override
