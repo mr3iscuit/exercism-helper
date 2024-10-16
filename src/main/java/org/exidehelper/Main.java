@@ -2,7 +2,7 @@ package org.exidehelper;
 import org.exidehelper.appConfig.ConfigService;
 import org.exidehelper.commands.ConfigCommand;
 import org.exidehelper.commands.WorkspaceCommand;
-import org.exidehelper.exercismWrapperService.ExercismAPIWrapperService;
+import org.exidehelper.exercismWrapperService.*;
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
 
@@ -14,15 +14,16 @@ public class Main implements Runnable {
 
     }
     public static void main(String[] args) {
+
         ConfigService configService = new ConfigService();
-        ExercismAPIWrapperService exercismAPIWrapperService = new ExercismAPIWrapperService(configService);
+        IExercismAPIWrapperService exercismAPIWrapperService = new ExercismAPIWrapperService(configService);
         ConfigCommand configCommand = new ConfigCommand(exercismAPIWrapperService);
 
         WorkspaceCommand workspaceCommand = new WorkspaceCommand(exercismAPIWrapperService);
 
         int exitCode = new CommandLine(new Main())
-                .addSubcommand("configure", configCommand)
                 .addSubcommand("workspace", workspaceCommand)
+                .addSubcommand("configure", configCommand)
                 .execute(args);
         System.exit(exitCode);
     }

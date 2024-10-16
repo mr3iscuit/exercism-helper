@@ -1,15 +1,13 @@
 package org.exidehelper.commands;
 
+import lombok.SneakyThrows;
 import org.exidehelper.appConfig.IConfigService;
 import org.exidehelper.exercismWrapperService.IExercismAPIWrapperService;
 import picocli.CommandLine;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-
 @CommandLine.Command(name = "workspace", description = "print exercism workspace")
 public class WorkspaceCommand implements Runnable {
+
     IConfigService configService;
     IExercismAPIWrapperService exercismAPIWrapperService;
 
@@ -17,8 +15,11 @@ public class WorkspaceCommand implements Runnable {
         this.exercismAPIWrapperService = exercismAPIWrapperService;
     }
 
+    @SneakyThrows
     @Override
     public void run() {
-        System.out.println(exercismAPIWrapperService.getWorkspace());
+        System.out.println(
+                exercismAPIWrapperService.workspace().runCommand()
+        );
     }
 }
