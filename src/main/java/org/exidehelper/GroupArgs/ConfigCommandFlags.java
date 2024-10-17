@@ -1,4 +1,4 @@
-package org.exidehelper.exercismWrapperService;
+package org.exidehelper.GroupArgs;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,11 +10,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ConfigCommandFlags {
-    Boolean show;
-    Boolean help;
-    Boolean noVerify;
-
-    String workspace;
-    String token;
-    String api;
+    private Boolean show;
+    private Boolean help;
+    private Boolean noVerify;
+    private String workspace;
+    private String token;
+    private String api;
 }

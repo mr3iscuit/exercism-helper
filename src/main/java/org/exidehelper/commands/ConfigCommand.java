@@ -1,14 +1,14 @@
 package org.exidehelper.commands;
 
-import org.exidehelper.exercismWrapperService.ConfigCommandFlags;
-import org.exidehelper.exercismWrapperService.GlobalFlags;
+import org.exidehelper.GroupArgs.ConfigCommandFlags;
+import org.exidehelper.GroupArgs.GlobalFlags;
 import org.exidehelper.exercismWrapperService.IExercismAPIWrapperService;
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
 
 import java.io.IOException;
 
-@Command(name = "configure", description = "Configuration related operations")
+@Command(name = "configure", mixinStandardHelpOptions = true, description = "Configuration related operations")
 public class ConfigCommand implements Runnable {
     private final IExercismAPIWrapperService exercismAPIWrapperService;
 
@@ -27,7 +27,7 @@ public class ConfigCommand implements Runnable {
     @CommandLine.Option(names = {"--show", "-s"}, description = "show the current configuration")
     private boolean show;
 
-    @CommandLine.Option(names = {"--help", "-h"}, description = "help for configure")
+//    @CommandLine.Option(names = {"--help", "-h"}, description = "help for configure")
     private boolean help;
 
     @CommandLine.Option(names = {"--no-verify"}, description = "skip online token authorization check")

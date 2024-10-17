@@ -1,4 +1,4 @@
-package org.exidehelper.exercismWrapperService;
+package org.exidehelper.GroupArgs;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

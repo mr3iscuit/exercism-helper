@@ -29,6 +29,12 @@ public class AppConfigTest {
 
     @Test
     @Disabled
+    public void defaultConfigOnNotConfigFileFound() {
+
+    }
+
+    @Test
+    @Disabled
     public void testDeserialization() throws IOException {
     }
 

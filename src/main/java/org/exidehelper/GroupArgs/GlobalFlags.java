@@ -1,4 +1,4 @@
-package org.exidehelper.exercismWrapperService;
+package org.exidehelper.GroupArgs;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class GlobalFlags {
-    Integer timeout;
-    Boolean unmaskToken;
-    Boolean verbose;
+    private Integer timeout;
+    private Boolean unmaskToken;
+    private Boolean verbose;
 }
