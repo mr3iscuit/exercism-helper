@@ -5,7 +5,6 @@ import org.exidehelper.CommandExecutor;
 import org.exidehelper.GroupArgs.ConfigCommandFlags;
 import org.exidehelper.GroupArgs.DownloadFlags;
 import org.exidehelper.GroupArgs.GlobalFlags;
-import org.exidehelper.appConfig.ConfigService;
 import org.exidehelper.appConfig.IConfigService;
 import org.exidehelper.exceptions.NoExercismTrackException;
 
@@ -16,11 +15,9 @@ import java.util.stream.Collectors;
 public class ExercismAPIWrapperService implements IExercismAPIWrapperService {
 
     IConfigService configService;
-    private ArrayList<String> command;
 
     public ExercismAPIWrapperService(IConfigService configService) {
         this.configService = configService;
-        this.command = new ArrayList<String>(List.of(configService.getExercismExecutable()));
     }
 
     @Override
@@ -29,35 +26,9 @@ public class ExercismAPIWrapperService implements IExercismAPIWrapperService {
         List<String> command = List.of(new String[]{
                 configService.getExercismExecutable(),
                 "workspace",
-        }).stream().filter(s -> !s.isEmpty()).collect(Collectors.toList());
+        });
 
         return CommandExecutor.executeCommand(command);
-    }
-
-    @Override
-    public String runCommand() throws IOException, InterruptedException {
-
-        String res;
-
-        try {
-            res = CommandExecutor.executeCommand(command);
-        }
-
-        catch (IOException e) {
-            throw new RuntimeException(
-                    "Could not execute command %s".formatted(
-                        command
-                            .stream()
-                            .collect(
-                                    Collectors.joining(" ")
-                            )
-                    ),
-                    e
-            );
-        }
-
-        command.clear();
-        return res;
     }
 
     @Override

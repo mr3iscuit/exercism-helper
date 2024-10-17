@@ -17,8 +17,4 @@ public class ConfigModel {
 
     @Builder.Default
     private EditorConfigModel editorConfig = new EditorConfigModel();
-
-    public static ConfigModel defaults() {
-        return new ConfigModel();
-    }
 }

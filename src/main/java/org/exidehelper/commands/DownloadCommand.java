@@ -74,14 +74,13 @@ public class DownloadCommand implements Runnable {
         catch (IOException e) {
             throw new RuntimeException(e);
         }
-        catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
         catch (MissingArgumentException e) {
             System.out.println(e.getMessage());
         }
         catch (NoExercismTrackException e) {
             System.out.println(e.getMessage());
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
     }
 }

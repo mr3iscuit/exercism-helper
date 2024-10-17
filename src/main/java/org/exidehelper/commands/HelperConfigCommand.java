@@ -1,7 +1,6 @@
 package org.exidehelper.commands;
 
 import org.exidehelper.appConfig.IConfigService;
-import org.exidehelper.exceptions.NoExercismTrackException;
 import picocli.CommandLine;
 
 import java.io.IOException;

@@ -30,12 +30,6 @@ public class ConfigService implements IConfigService {
     }
 
     @Override
-    public void setExercismExecutablePath(String path) {
-        ConfigModel configModel = loadConfig();
-        configModel.setExercismExecutablePath(path);
-    }
-
-    @Override
     public void setEditorPath(String track, String editorPath) throws IOException {
         ConfigModel configModel = loadConfig();
         EditorPathConfigModel editorPathConfig = configModel.getEditorConfig().getEditorPathConfig();
@@ -63,13 +57,13 @@ public class ConfigService implements IConfigService {
         ConfigModel configModel = loadConfig();
         EditorPathConfigModel editorPath = loadConfig().getEditorConfig().getEditorPathConfig();
 
-        switch (track) {
-            case "java" : return editorPath.getJava();
-            case "cpp" : return editorPath.getCpp();
-            case "python" : return editorPath.getPython();
-            case "rust" : return editorPath.getRust();
-            default: throw new NoExercismTrackException("There no exercism track: " + track);
-        }
+        return switch (track) {
+            case "java" -> editorPath.getJava();
+            case "cpp" -> editorPath.getCpp();
+            case "python" -> editorPath.getPython();
+            case "rust" -> editorPath.getRust();
+            default -> throw new NoExercismTrackException("There no exercism track: " + track);
+        };
 
     }
 
