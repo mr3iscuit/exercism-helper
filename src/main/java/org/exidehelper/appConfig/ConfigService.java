@@ -54,7 +54,6 @@ public class ConfigService implements IConfigService {
 
     @Override
     public String getEditorPath(String track) throws NoExercismTrackException {
-        ConfigModel configModel = loadConfig();
         EditorPathConfigModel editorPath = loadConfig().getEditorConfig().getEditorPathConfig();
 
         return switch (track) {
