@@ -43,6 +43,9 @@ public class DownloadCommand implements Runnable {
     @CommandLine.Option(names = {"--uuid", "-u"}, description = "the solution UUID")
     private String uuid;
 
+    @CommandLine.Option(names = {"--editor", "-E"}, description = "override open in editor option")
+    private Boolean openOnDownload;
+
     public DownloadCommand(IExercismAPIWrapperService exercismAPIWrapperService) {
         this.exercismAPIWrapperService = exercismAPIWrapperService;
     }
@@ -63,7 +66,8 @@ public class DownloadCommand implements Runnable {
             exercise,
             track,
             team,
-            uuid
+            uuid,
+            openOnDownload
         );
 
         try {

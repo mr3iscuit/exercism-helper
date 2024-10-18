@@ -11,4 +11,6 @@ public interface IConfigService {
     String getEditorPath(String track) throws NoExercismTrackException;
 
     void editorOnDownload(Boolean onDownload) throws IOException;
+
+    boolean getOnDownload();
 }

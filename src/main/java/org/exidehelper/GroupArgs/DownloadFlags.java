@@ -16,4 +16,5 @@ public class DownloadFlags {
     private String track;
     private String team;
     private String uuid;
+    private Boolean openOnDownload;
 }

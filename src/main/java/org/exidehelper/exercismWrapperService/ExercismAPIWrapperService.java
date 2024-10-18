@@ -72,11 +72,11 @@ public class ExercismAPIWrapperService implements IExercismAPIWrapperService {
 
         String exercisePath = "%s/%s/%s".formatted(this.workspace().strip(), df.getTrack(), df.getExercise());
 
-        CommandExecutor.executeCommand(List.of(new String[]{
-                configService.getEditorPath(df.getTrack()),
-                exercisePath
-        }));
         Boolean openOnDonwload = configService.getOnDownload();
+
+        if (df.getOpenOnDownload() != null) {
+            openOnDonwload = df.getOpenOnDownload();
+        }
 
         if(openOnDonwload) {
             CommandExecutor.executeCommand(List.of(new String[]{
