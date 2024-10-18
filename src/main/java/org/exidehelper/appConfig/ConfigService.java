@@ -74,6 +74,11 @@ public class ConfigService implements IConfigService {
         writeConfig(configModel);
     }
 
+    @Override
+    public boolean getOnDownload() {
+        return loadConfig().getEditorConfig().getOpenOnDownload();
+    }
+
     private void writeConfig(ConfigModel configModel) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.writeValue(new File(System.getProperty("user.home") + "/.config/exercism-helper/config.json"), configModel);
