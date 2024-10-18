@@ -7,7 +7,7 @@ import picocli.CommandLine;
 import picocli.CommandLine.Command;
 
 
-@Command()
+@Command(mixinStandardHelpOptions = true)
 public class Main implements Runnable {
 
     @Override
