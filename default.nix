@@ -5,6 +5,7 @@ pkgs.stdenv.mkDerivation {
 
     buildInputs = with pkgs; [
         jre17_minimal
+        exercism
     ];
 
     nativeBuildInputs = with pkgs; [
@@ -17,7 +18,7 @@ pkgs.stdenv.mkDerivation {
         mkdir -p $out/lib
         cp ./exide-helper-1.0-SNAPSHOT.jar $out/lib/exercism-helper.jar
 
-        makeWrapper ${pkgs.jre17_minimal}/bin/java $out/bin/exercism-helper \
+        makeWrapper ${pkgs.jre17_minimal}/bin/java $out/bin/exercism \
           --add-flags "-cp $out/lib/exercism-helper.jar" \
           --add-flags "org.exidehelper.Main"
     '';
