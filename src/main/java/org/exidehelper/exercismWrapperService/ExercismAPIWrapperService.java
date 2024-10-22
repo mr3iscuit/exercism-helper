@@ -11,10 +11,11 @@ import org.exidehelper.exceptions.NoExercismTrackException;
 import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class ExercismAPIWrapperService implements IExercismAPIWrapperService {
 
-    IConfigService configService;
+    final IConfigService configService;
 
     public ExercismAPIWrapperService(IConfigService configService) {
         this.configService = configService;
@@ -38,7 +39,7 @@ public class ExercismAPIWrapperService implements IExercismAPIWrapperService {
             throw new MissingArgumentException("Error: need an --exercise name or a solution --uuid");
         }
 
-        List<String> command = List.of(new String[]{
+        List<String> command = Stream.of(new String[]{
                 configService.getExercismExecutable(),
 
                 gf.getUnmaskToken() ? "--unmask-token" : "",
@@ -64,7 +65,7 @@ public class ExercismAPIWrapperService implements IExercismAPIWrapperService {
                 df.getUuid() != null ? "--track" : "",
                 df.getUuid() != null ? df.getUuid() : "",
 
-        }).stream().filter(s -> !s.isEmpty()).collect(Collectors.toList());
+        }).filter(s -> !s.isEmpty()).collect(Collectors.toList());
 
         System.out.println(
             CommandExecutor.executeCommand(command)
@@ -72,7 +73,7 @@ public class ExercismAPIWrapperService implements IExercismAPIWrapperService {
 
         String exercisePath = "%s/%s/%s".formatted(this.workspace().strip(), df.getTrack(), df.getExercise());
 
-        Boolean openOnDonwload = configService.getOnDownload();
+        boolean openOnDonwload = configService.getOnDownload();
 
         if (df.getOpenOnDownload() != null) {
             openOnDonwload = df.getOpenOnDownload();
@@ -91,7 +92,7 @@ public class ExercismAPIWrapperService implements IExercismAPIWrapperService {
     @Override
     public String configure(GlobalFlags gf, ConfigCommandFlags cf) throws IOException, InterruptedException {
 
-        List<String> command = List.of(new String[]{
+        List<String> command = Stream.of(new String[]{
                 configService.getExercismExecutable(),
                 gf.getUnmaskToken() ? "--unmask-token" : "",
                 gf.getVerbose() ? "--verbose" : "",
@@ -114,7 +115,7 @@ public class ExercismAPIWrapperService implements IExercismAPIWrapperService {
                 cf.getWorkspace() != null ? "--workspace" : "",
                 cf.getWorkspace() != null ? cf.getWorkspace() : "",
 
-        }).stream().filter(s -> !s.isEmpty()).collect(Collectors.toList());
+        }).filter(s -> !s.isEmpty()).collect(Collectors.toList());
 
         return CommandExecutor.executeCommand(command);
     }
